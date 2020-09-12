@@ -6,9 +6,7 @@ export const initialState = {
             nickname: 'JH',
         },
         content : '첫번째 게시글 #해시태그 #익스프레스',
-        Images: [{
-            src: "https://thumbs.gfycat.com/ThoughtfulBriskIriomotecat-size_restricted.gif"
-        }, {
+        Images: [ {
             src: "https://avatars3.githubusercontent.com/u/21700764?s=460&u=fe2df1f57cc9e080816be208b9a8767e9a1d6a61&v=4"
         }, {
             src : "https://avatars2.githubusercontent.com/u/52182924?s=200&v=4"
