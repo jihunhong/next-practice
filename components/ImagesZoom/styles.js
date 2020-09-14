@@ -31,7 +31,7 @@ export const Header = styled.header`
         line-height : 14px;
         cursor : pointer;
     }
-`
+`;
 
 export const SlickWrapper = styled.div`
     height : calc(100% - 44px);
@@ -79,4 +79,3 @@ export const CloseBtn = styled(CloseOutlined)`
     line-height: 14px;
     cursor: pointer;
 `;
-

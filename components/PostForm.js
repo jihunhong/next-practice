@@ -1,14 +1,14 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { Form, Input, Button } from "antd";
 import { useSelector, useDispatch } from 'react-redux';
 
 import { addPost } from '../reducers/post';
+import useInput from '../hooks/useInput';
 
 const PostForm = () => {
     const { imagePaths, addPostDone } = useSelector((state) => state.post);
     const dispatch = useDispatch();
-    const imageInput = useRef();
-    const [text, setText] = useState('');
+    const [text, onChangeText, setText] = useInput('');
 
     useEffect(() => {
         if(addPostDone){
@@ -16,14 +16,12 @@ const PostForm = () => {
         }
     }, [addPostDone]);
     
-    const onChageText = useCallback((e) => {
-        setText(e.target.value);
-    }, []);
 
     const onSubmit = useCallback(() => {
         dispatch(addPost(text));
     }, [text]);
 
+    const imageInput = useRef();
     const onClickImageUpload = useCallback(() => {
         imageInput.current.click();
     }, [imageInput.current]);
@@ -32,7 +30,7 @@ const PostForm = () => {
         <Form style={{ margin : '10px 0 20px' }} encType="multipart/form-data" onFinish={onSubmit}>
             <Input.TextArea
                 value={text}
-                onChange={onChageText}
+                onChange={onChangeText}
                 maxLength={140}
                 placeholder="어떤 일이 있었나요?"
             />
