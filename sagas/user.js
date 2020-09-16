@@ -1,6 +1,14 @@
 import { all, fork, put, delay, takeLatest, call } from 'redux-saga/effects';
 import axios from 'axios';
-import { LOG_IN_SUCCESS, LOG_IN_REQUEST, LOG_IN_FAILURE, SIGN_UP_REQUEST, SIGN_UP_FAILURE, SIGN_UP_SUCCESS } from '../reducers/user';
+import { LOG_IN_SUCCESS,
+   LOG_IN_REQUEST,
+   LOG_IN_FAILURE,
+   LOG_OUT_SUCCESS,
+   LOG_OUT_REQUEST,
+   LOG_OUT_FAILURE,
+   SIGN_UP_REQUEST,
+   SIGN_UP_FAILURE,
+   SIGN_UP_SUCCESS } from '../reducers/user';
 
 function logInAPI(data) {
   return axios.post('/api/login', data);

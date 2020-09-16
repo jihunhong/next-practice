@@ -1,3 +1,5 @@
+import shortId from 'shortid';
+
 export const initialState = {
   mainPosts: [{
     id: 1,
@@ -29,6 +31,10 @@ export const initialState = {
   addPostLoading: false,
   addPostDone: false,
   addPostError: false,
+
+  addCommentLoading: false,
+  addCommentDone: false,
+  addCommentError: false,
 };
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -49,23 +55,25 @@ export const addComment = (data) => ({
   data,
 });
 
-const dummyPost = {
-  id: 2,
+const dummyPost = (data) => ({
+  id: shortId.generate(),
+  content: data,
   User: {
     id: 1,
     nickname: 'JH',
   },
-  content: '더미데이터',
-  Images: [{
-    src: 'https://avatars0.githubusercontent.com/u/21700764?s=460&v=4',
-  }],
-  Comments: [{
-    User: {
-      nickname: 'user1',
-    },
-    content: 'content test 1',
-  }],
-};
+  Images: [],
+  Comments: [],
+});
+
+const dummyComment = (data) => ({
+  id : shortId.generate(),
+  content : data,
+  User : {
+    id : 1,
+    nickname : 'JH'
+  }
+})
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -79,7 +87,7 @@ const reducer = (state = initialState, action) => {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [dummyPost(action.data), ...state.mainPosts],
         addPostLoading: false,
         addPostDone: true,
       };
@@ -96,13 +104,19 @@ const reducer = (state = initialState, action) => {
         addCommentDone: false,
         addCommentError: null,
       };
-    case ADD_COMMENT_SUCCESS:
+    case ADD_COMMENT_SUCCESS: {
+      const postIndex = state.mainPosts.findIndex((v) => v.id === action.data.postId);
+      const post = { ...state.mainPosts[postIndex] };
+      post.Comments = [dummyComment(action.data.content), ...post.Comments];
+      const mainPosts = [...state.mainPosts];
+      mainPosts[postIndex] = post;
       return {
         ...state,
-        mainCOMMENTs: [dummyCOMMENT, ...state.mainCOMMENTs],
+        mainPosts,
         addCommentLoading: false,
         addCommentDone: true,
       };
+    }
     case ADD_COMMENT_FAILURE:
       return {
         ...state,

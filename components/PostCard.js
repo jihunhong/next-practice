@@ -8,6 +8,7 @@ import CommentForm from './CommentForm';
 import PostCardContent from './PostCardContent';
 
 const PostCard = ({ post }) => {
+  console.log(post.content)
   const [liked, setLiked] = useState(false);
   const [commentFormOpend, setCommentFormOpend] = useState(false);
   const onToggleLike = useCallback(() => {
