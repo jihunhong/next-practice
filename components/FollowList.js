@@ -22,7 +22,7 @@ const FollowList = ({ header, data }) => (
 );
 
 FollowList.propTypes = {
-  hedaer: PropTypes.string.isRequired,
+  header: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
 };
 
